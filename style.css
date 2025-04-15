@@ -1,58 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #0d0d0d;
+  background-color: #121212;
   color: #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  margin: 0;
+  justify-content: center;
+  height: 100vh;
   text-align: center;
-  padding: 30px 20px;
+  background: url('https://cdn.pixabay.com/photo/2016/04/05/22/34/scary-1313466_960_720.jpg') no-repeat center center/cover;
+  overflow: hidden;
+  transition: background 1s ease;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #ff0033;
+  text-shadow: 2px 2px 10px rgba(255, 0, 51, 0.7);
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #ff0033;
+  font-size: 18px;
+  margin: 10px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 280px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #cc0029;
+  outline: none;
 }
 
 button {
   background-color: #ff0033;
   color: white;
-  border: none;
   padding: 15px 30px;
   font-size: 18px;
   border-radius: 10px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 10px;
+  margin: 20px 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 51, 0.6);
 }
 
 button:hover {
   background-color: #cc0029;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #b20024;
+  transform: scale(1);
 }
 
 .story-box {
-  margin-top: 30px;
-  font-size: 20px;
+  font-size: 18px;
+  margin-top: 20px;
   max-width: 600px;
+  width: 100%;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 0, 51, 0.7);
 }
 
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin: 10px;
-  font-size: 16px;
+.story-box p {
+  font-size: 1.2rem;
+}
+
+img {
+  margin-top: 20px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 0, 51, 0.8);
 }
 
 .share-buttons {
   margin-top: 20px;
 }
 
-audio {
-  margin-top: 20px;
+.share-buttons button {
+  background-color: #1db954;
+  color: white;
+  padding: 12px 25px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-#storyImage {
-  margin-top: 20px;
-  max-width: 100%;
+.share-buttons button:hover {
+  background-color: #16a34a;
+}
+
+audio {
+  margin-top: 30px;
+  width: 100%;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
+  background-color: #222;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .story-box {
+    width: 100%;
+  }
 }
