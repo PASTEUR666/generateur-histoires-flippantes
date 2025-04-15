@@ -21,8 +21,9 @@
     <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
   </div>
 
-  <!-- Audio pour la voix off effrayante -->
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" preload="auto" loop></audio>
+  <button onclick="downloadStory()" id="downloadButton" style="display:none;">Télécharger l'histoire</button>
+
+  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
 
   <script>
     const stories = [
@@ -45,8 +46,22 @@
       {
         text: "Ta caméra de sécurité à {city} envoie une alerte à {name} : 'Mouvement détecté dans le salon'. Tu regardes… tu es assis sur ton canapé. Mais tu es aussi là, debout.",
         img: "https://cdn.pixabay.com/photo/2020/05/06/11/44/ghost-5136382_960_720.jpg"
+      },
+      {
+        text: "Un inconnu suit {name} sur tous ses réseaux. Il change son pseudo chaque jour pour la date du jour… et l’adresse exacte à {city}.",
+        img: "https://cdn.pixabay.com/photo/2017/10/29/20/48/horror-2904346_960_720.jpg"
+      },
+      {
+        text: "À {city}, chaque nuit, {name} entend des pas dans le grenier. Une nuit, il monte… et trouve un lit fait, encore tiède.",
+        img: "https://cdn.pixabay.com/photo/2022/10/31/23/06/horror-7560627_960_720.jpg"
+      },
+      {
+        text: "Le miroir de {name} à {city} s'embue chaque matin. Un message apparaît toujours : 'REVIENS.' Mais {name} vit seul… depuis toujours.",
+        img: "https://cdn.pixabay.com/photo/2021/10/24/19/35/ghost-6737640_960_720.jpg"
       }
     ];
+
+    let currentStory = "";
 
     function generateStory() {
       const name = document.getElementById('userName').value || 'Quelqu’un';
@@ -55,13 +70,19 @@
       let story = stories[index].text;
       story = story.replaceAll('{name}', name).replaceAll('{city}', city);
       document.getElementById('storyBox').innerText = story;
+      currentStory = story;  // Save the current story text for download
       const img = document.getElementById('storyImage');
       img.src = stories[index].img;
       img.style.display = 'block';
+      document.getElementById('downloadButton').style.display = 'inline-block'; // Show the download button
+    }
 
-      // Lancer la voix off (effrayante)
-      const creepySound = document.getElementById('creepySound');
-      creepySound.play();
+    function downloadStory() {
+      const blob = new Blob([currentStory], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'histoire_flippante.txt';
+      link.click();
     }
 
     function shareTikTok() {
