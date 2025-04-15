@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Générateur d'Histoires Flippantes</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    button {
+      background-color: #ff0033;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 10px;
+    }
+    button:hover {
+      background-color: #cc0029;
+    }
+    .story-box {
+      margin-top: 30px;
+      font-size: 20px;
+      max-width: 600px;
+    }
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .share-buttons, .extra-buttons {
+      margin-top: 20px;
+    }
+    audio {
+      margin-top: 20px;
+    }
+    #storyImage {
+      margin-top: 20px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
+    }
+    #fearMeter {
+      width: 300px;
+      height: 20px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    #fearLevel {
+      height: 100%;
+      background-color: red;
+      width: 0%;
+    }
+  </style>
+</head>
+<body>
+  <h1>💀 Générateur d'Histoires Flippantes</h1>
+
+  <input type="text" id="userName" placeholder="Ton prénom" />
+  <input type="text" id="userCity" placeholder="Ta ville" />
+  <button onclick="generateStory()">Générer une histoire</button>
+  <div class="story-box" id="storyBox">Clique sur le bouton... si tu n'as pas peur.</div>
+  <img id="storyImage" src="" alt="Image flippante" style="display:none;" />
+
+  <div id="fearMeter">
+    <div id="fearLevel"></div>
+  </div>
+
+  <div class="share-buttons">
+    <button onclick="shareTikTok()">Partager sur TikTok</button>
+    <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
+  </div>
+
+  <div class="extra-buttons">
+    <button onclick="downloadStoryImage()">📷 Télécharger l’histoire en image</button>
+  </div>
+
+  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
+
+  <script>
+    const stories = [
+      {
+        text: "{name}, tu te réveilles à 3h33 à {city}. Ton téléphone s'allume tout seul, et affiche une photo de toi en train de dormir... prise à l’instant même.",
+        img: "https://cdn.pixabay.com/photo/2021/01/06/08/06/ghost-5892777_960_720.jpg"
+      },
+      {
+        text: "Une voix appelle {name} depuis la cuisine à {city}. Tu vis seul. Tu regardes… et tu te vois, toi, te sourire depuis le couloir.",
+        img: "https://cdn.pixabay.com/photo/2020/11/14/08/27/horror-5739997_960_720.jpg"
+      },
+      {
+        text: "Un enfant pleure dans les rues de {city}. Tu sors pour l’aider. Il te regarde et dit : 'Je t’ai trouvé… {name}.' Mais tu ne l’as jamais vu.",
+        img: "https://cdn.pixabay.com/photo/2016/12/27/21/03/doll-1935560_960_720.jpg"
+      },
+      {
+        text: "{name}, tu retrouves un post-it chez toi à {city} : 'N’oublie pas de te réveiller.' Tu crois que tu es éveillé… mais le monde commence à se déformer.",
+        img: "https://cdn.pixabay.com/photo/2021/01/28/21/51/nightmare-5959296_960_720.jpg"
+      },
+      {
+        text: "Ta caméra de sécurité à {city} envoie une alerte à {name} : 'Mouvement détecté dans le salon'. Tu regardes… tu es assis sur ton canapé. Mais tu es aussi là, debout.",
+        img: "https://cdn.pixabay.com/photo/2020/05/06/11/44/ghost-5136382_960_720.jpg"
+      },
+      {
+        text: "Un inconnu suit {name} sur tous ses réseaux. Il change son pseudo chaque jour pour la date du jour… et l’adresse exacte à {city}.",
+        img: "https://cdn.pixabay.com/photo/2017/10/29/20/48/horror-2904346_960_720.jpg"
+      },
+      {
+        text: "À {city}, chaque nuit, {name} entend des pas dans le grenier. Une nuit, il monte… et trouve un lit fait, encore tiède.",
+        img: "https://cdn.pixabay.com/photo/2022/10/31/23/06/horror-7560627_960_720.jpg"
+      },
+      {
+        text: "Le miroir de {name} à {city} s'embue chaque matin. Un message apparaît toujours : 'REVIENS.' Mais {name} vit seul… depuis toujours.",
+        img: "https://cdn.pixabay.com/photo/2021/10/24/19/35/ghost-6737640_960_720.jpg"
+      }
+    ];
+
+    function generateStory() {
+      const name = document.getElementById('userName').value || 'Quelqu’un';
+      const city = document.getElementById('userCity').value || 'quelque part';
+      const index = Math.floor(Math.random() * stories.length);
+      let story = stories[index].text;
+      story = story.replaceAll('{name}', name).replaceAll('{city}', city);
+      document.getElementById('storyBox').innerText = story;
+      const img = document.getElementById('storyImage');
+      img.src = stories[index].img;
+      img.style.display = 'block';
+      document.getElementById('fearLevel').style.width = `${30 + Math.random() * 70}%`;
+    }
+
+    function shareTikTok() {
+      alert("TikTok ne permet pas le partage direct depuis une page web. Copie-colle l'histoire sur ton TikTok !");
+    }
+
+    function shareWhatsApp() {
+      const story = document.getElementById('storyBox').innerText;
+      const url = `https://wa.me/?text=${encodeURIComponent(story)}`;
+      window.open(url, '_blank');
+    }
+
+    function downloadStoryImage() {
+      html2canvas(document.querySelector(".story-box")).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'histoire_flippante.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
