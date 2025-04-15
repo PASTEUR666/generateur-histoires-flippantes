@@ -5,47 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Générateur d'Histoires Flippantes</title>
   <link rel="stylesheet" href="style.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
+  <div class="flash" id="flash"></div> <!-- Flash red background div -->
   <h1>💀 Générateur d'Histoires Flippantes</h1>
-
-  <!-- Publicité Google AdSense 1 -->
-  <div class="adsense-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXX" 
-         data-ad-slot="XXXXXXX"
-         data-ad-format="auto"></ins>
-  </div>
 
   <input type="text" id="userName" placeholder="Ton prénom" />
   <input type="text" id="userCity" placeholder="Ta ville" />
   <button onclick="generateStory()">Générer une histoire</button>
-
   <div class="story-box" id="storyBox">Clique sur le bouton... si tu n'as pas peur.</div>
-
-  <!-- Image flippante -->
   <img id="storyImage" src="" alt="Image flippante" style="display:none;" />
-
-  <!-- Publicité Google AdSense 2 -->
-  <div class="adsense-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXX" 
-         data-ad-slot="XXXXXXX"
-         data-ad-format="auto"></ins>
-  </div>
 
   <div class="share-buttons">
     <button onclick="shareTikTok()">Partager sur TikTok</button>
     <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
   </div>
 
-  <!-- Bouton pour télécharger l'histoire -->
-  <button id="downloadButton" onclick="downloadStory()">Télécharger l'histoire</button>
-
-  <!-- Son effrayant -->
   <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
 
   <script>
@@ -58,7 +33,10 @@
         text: "Une voix appelle {name} depuis la cuisine à {city}. Tu vis seul. Tu regardes… et tu te vois, toi, te sourire depuis le couloir.",
         img: "https://cdn.pixabay.com/photo/2020/11/14/08/27/horror-5739997_960_720.jpg"
       },
-      // Ajoutez d'autres histoires ici
+      {
+        text: "Un enfant pleure dans les rues de {city}. Tu sors pour l’aider. Il te regarde et dit : 'Je t’ai trouvé… {name}.' Mais tu ne l’as jamais vu.",
+        img: "https://cdn.pixabay.com/photo/2016/12/27/21/03/doll-1935560_960_720.jpg"
+      }
     ];
 
     function generateStory() {
@@ -71,7 +49,12 @@
       const img = document.getElementById('storyImage');
       img.src = stories[index].img;
       img.style.display = 'block';
-      document.getElementById('downloadButton').style.display = 'block';
+
+      // Show flash effect
+      document.getElementById('flash').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('flash').style.display = 'none';
+      }, 500); // Flash duration 500ms
     }
 
     function shareTikTok() {
@@ -83,30 +66,6 @@
       const url = `https://wa.me/?text=${encodeURIComponent(story)}`;
       window.open(url, '_blank');
     }
-
-    function downloadStory() {
-      const storyText = document.getElementById('storyBox').innerText;
-      const blob = new Blob([storyText], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'histoire_flippante.txt';
-      link.click();
-    }
   </script>
-
-  <!-- Publicité Google AdSense 3 -->
-  <div class="adsense-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXX" 
-         data-ad-slot="XXXXXXX"
-         data-ad-format="auto"></ins>
-  </div>
-
-  <!-- Charge les publicités -->
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-
 </body>
 </html>
