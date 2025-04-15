@@ -1,35 +1,17 @@
 body {
-   background: url("Fond.png") no-repeat center center fixed;
-      background-size: cover;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      text-align: center;
-      padding: 30px 20px;
-      backdrop-filter: brightness(0.4);
-}
-
-h1 {
-  color: #ff0033;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin: 10px;
-  font-size: 16px;
-  width: 250px;
-  max-width: 100%;
-  background-color: #333;
-  color: #fff;
+  background: url("Fond.png") no-repeat center center fixed;
+  background-size: cover;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
+  padding: 30px 20px;
+  backdrop-filter: brightness(40%) blur(2px);
 }
 
 button {
@@ -42,9 +24,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
   margin: 10px;
-  width: 250px;
 }
-
 button:hover {
   background-color: #cc0029;
 }
@@ -53,14 +33,18 @@ button:hover {
   margin-top: 30px;
   font-size: 20px;
   max-width: 600px;
-  word-wrap: break-word;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
 }
 
-#storyImage {
-  margin-top: 20px;
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+  font-size: 16px;
 }
 
 .share-buttons {
@@ -71,30 +55,22 @@ audio {
   margin-top: 20px;
 }
 
-#downloadButton {
-  background-color: #0044cc;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 18px;
+#storyImage {
+  margin-top: 20px;
+  max-width: 100%;
   border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 10px;
-  width: 250px;
-  display: none;
+  box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
 }
 
-#downloadButton:hover {
-  background-color: #003399;
+.download-button {
+  margin-top: 20px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #444;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
 }
-
-@media (max-width: 600px) {
-  input, button {
-    width: 80%;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
+.download-button:hover {
+  background-color: #333;
 }
