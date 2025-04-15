@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Générateur d'Histoires Flippantes</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>💀 Générateur d'Histoires Flippantes</h1>
@@ -12,6 +12,7 @@
   <input type="text" id="userName" placeholder="Ton prénom" />
   <input type="text" id="userCity" placeholder="Ta ville" />
   <button onclick="generateStory()">Générer une histoire</button>
+  
   <div class="story-box" id="storyBox">Clique sur le bouton... si tu n'as pas peur.</div>
   <img id="storyImage" src="" alt="Image flippante" style="display:none;" />
 
@@ -20,7 +21,8 @@
     <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
   </div>
 
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
+  <!-- Audio pour la voix off effrayante -->
+  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" preload="auto" loop></audio>
 
   <script>
     const stories = [
@@ -43,18 +45,6 @@
       {
         text: "Ta caméra de sécurité à {city} envoie une alerte à {name} : 'Mouvement détecté dans le salon'. Tu regardes… tu es assis sur ton canapé. Mais tu es aussi là, debout.",
         img: "https://cdn.pixabay.com/photo/2020/05/06/11/44/ghost-5136382_960_720.jpg"
-      },
-      {
-        text: "Un inconnu suit {name} sur tous ses réseaux. Il change son pseudo chaque jour pour la date du jour… et l’adresse exacte à {city}.",
-        img: "https://cdn.pixabay.com/photo/2017/10/29/20/48/horror-2904346_960_720.jpg"
-      },
-      {
-        text: "À {city}, chaque nuit, {name} entend des pas dans le grenier. Une nuit, il monte… et trouve un lit fait, encore tiède.",
-        img: "https://cdn.pixabay.com/photo/2022/10/31/23/06/horror-7560627_960_720.jpg"
-      },
-      {
-        text: "Le miroir de {name} à {city} s'embue chaque matin. Un message apparaît toujours : 'REVIENS.' Mais {name} vit seul… depuis toujours.",
-        img: "https://cdn.pixabay.com/photo/2021/10/24/19/35/ghost-6737640_960_720.jpg"
       }
     ];
 
@@ -68,6 +58,10 @@
       const img = document.getElementById('storyImage');
       img.src = stories[index].img;
       img.style.display = 'block';
+
+      // Lancer la voix off (effrayante)
+      const creepySound = document.getElementById('creepySound');
+      creepySound.play();
     }
 
     function shareTikTok() {
