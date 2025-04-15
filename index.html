@@ -5,24 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Générateur d'Histoires Flippantes</title>
   <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
   <h1>💀 Générateur d'Histoires Flippantes</h1>
 
+  <!-- Publicité Google AdSense 1 -->
+  <div class="adsense-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXX" 
+         data-ad-slot="XXXXXXX"
+         data-ad-format="auto"></ins>
+  </div>
+
   <input type="text" id="userName" placeholder="Ton prénom" />
   <input type="text" id="userCity" placeholder="Ta ville" />
   <button onclick="generateStory()">Générer une histoire</button>
-  
+
   <div class="story-box" id="storyBox">Clique sur le bouton... si tu n'as pas peur.</div>
+
+  <!-- Image flippante -->
   <img id="storyImage" src="" alt="Image flippante" style="display:none;" />
+
+  <!-- Publicité Google AdSense 2 -->
+  <div class="adsense-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXX" 
+         data-ad-slot="XXXXXXX"
+         data-ad-format="auto"></ins>
+  </div>
 
   <div class="share-buttons">
     <button onclick="shareTikTok()">Partager sur TikTok</button>
     <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
   </div>
 
-  <button onclick="downloadStory()" id="downloadButton" style="display:none;">Télécharger l'histoire</button>
+  <!-- Bouton pour télécharger l'histoire -->
+  <button id="downloadButton" onclick="downloadStory()">Télécharger l'histoire</button>
 
+  <!-- Son effrayant -->
   <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
 
   <script>
@@ -35,33 +58,8 @@
         text: "Une voix appelle {name} depuis la cuisine à {city}. Tu vis seul. Tu regardes… et tu te vois, toi, te sourire depuis le couloir.",
         img: "https://cdn.pixabay.com/photo/2020/11/14/08/27/horror-5739997_960_720.jpg"
       },
-      {
-        text: "Un enfant pleure dans les rues de {city}. Tu sors pour l’aider. Il te regarde et dit : 'Je t’ai trouvé… {name}.' Mais tu ne l’as jamais vu.",
-        img: "https://cdn.pixabay.com/photo/2016/12/27/21/03/doll-1935560_960_720.jpg"
-      },
-      {
-        text: "{name}, tu retrouves un post-it chez toi à {city} : 'N’oublie pas de te réveiller.' Tu crois que tu es éveillé… mais le monde commence à se déformer.",
-        img: "https://cdn.pixabay.com/photo/2021/01/28/21/51/nightmare-5959296_960_720.jpg"
-      },
-      {
-        text: "Ta caméra de sécurité à {city} envoie une alerte à {name} : 'Mouvement détecté dans le salon'. Tu regardes… tu es assis sur ton canapé. Mais tu es aussi là, debout.",
-        img: "https://cdn.pixabay.com/photo/2020/05/06/11/44/ghost-5136382_960_720.jpg"
-      },
-      {
-        text: "Un inconnu suit {name} sur tous ses réseaux. Il change son pseudo chaque jour pour la date du jour… et l’adresse exacte à {city}.",
-        img: "https://cdn.pixabay.com/photo/2017/10/29/20/48/horror-2904346_960_720.jpg"
-      },
-      {
-        text: "À {city}, chaque nuit, {name} entend des pas dans le grenier. Une nuit, il monte… et trouve un lit fait, encore tiède.",
-        img: "https://cdn.pixabay.com/photo/2022/10/31/23/06/horror-7560627_960_720.jpg"
-      },
-      {
-        text: "Le miroir de {name} à {city} s'embue chaque matin. Un message apparaît toujours : 'REVIENS.' Mais {name} vit seul… depuis toujours.",
-        img: "https://cdn.pixabay.com/photo/2021/10/24/19/35/ghost-6737640_960_720.jpg"
-      }
+      // Ajoutez d'autres histoires ici
     ];
-
-    let currentStory = "";
 
     function generateStory() {
       const name = document.getElementById('userName').value || 'Quelqu’un';
@@ -70,19 +68,10 @@
       let story = stories[index].text;
       story = story.replaceAll('{name}', name).replaceAll('{city}', city);
       document.getElementById('storyBox').innerText = story;
-      currentStory = story;  // Save the current story text for download
       const img = document.getElementById('storyImage');
       img.src = stories[index].img;
       img.style.display = 'block';
-      document.getElementById('downloadButton').style.display = 'inline-block'; // Show the download button
-    }
-
-    function downloadStory() {
-      const blob = new Blob([currentStory], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'histoire_flippante.txt';
-      link.click();
+      document.getElementById('downloadButton').style.display = 'block';
     }
 
     function shareTikTok() {
@@ -94,6 +83,30 @@
       const url = `https://wa.me/?text=${encodeURIComponent(story)}`;
       window.open(url, '_blank');
     }
+
+    function downloadStory() {
+      const storyText = document.getElementById('storyBox').innerText;
+      const blob = new Blob([storyText], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'histoire_flippante.txt';
+      link.click();
+    }
   </script>
+
+  <!-- Publicité Google AdSense 3 -->
+  <div class="adsense-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXX" 
+         data-ad-slot="XXXXXXX"
+         data-ad-format="auto"></ins>
+  </div>
+
+  <!-- Charge les publicités -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
 </body>
 </html>
