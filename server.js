@@ -17,12 +17,16 @@ const openai = new OpenAI({
 app.post("/generate", async (req, res) => {
   try {
     const { theme } = req.body;
+
+    // Vérifie si le thème est fourni
     if (!theme) {
+      console.log("Le thème est manquant");
       return res.status(400).json({ error: "Le thème est requis." });
     }
 
-    console.log(`Génération d'histoire pour le thème: ${theme}`);
+    console.log(`Requête reçue pour générer une histoire avec le thème: ${theme}`);
 
+    // Envoi de la requête à OpenAI
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -30,11 +34,18 @@ app.post("/generate", async (req, res) => {
       ],
     });
 
-    const histoire = completion.choices[0].message.content;
-    res.json({ histoire });
+    // Vérifie si la réponse de OpenAI contient bien une histoire
+    if (completion.choices && completion.choices[0] && completion.choices[0].message) {
+      const histoire = completion.choices[0].message.content;
+      console.log("Histoire générée:", histoire);
+      return res.json({ histoire });
+    } else {
+      console.log("Aucune histoire générée");
+      return res.status(500).json({ error: "Aucune histoire générée" });
+    }
   } catch (err) {
     console.error("Erreur lors de la génération de l'histoire", err);
-    res.status(500).json({ error: "Erreur lors de la génération de l'histoire" });
+    return res.status(500).json({ error: "Erreur lors de la génération de l'histoire" });
   }
 });
 
