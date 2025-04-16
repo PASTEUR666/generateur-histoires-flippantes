@@ -73,3 +73,9 @@ body {
   backdrop-filter: brightness(40%) blur(2px);
   position: relative;
 }
+button:nth-child(4) {
+  background-color: #8800cc;
+}
+button:nth-child(4):hover {
+  background-color: #660099;
+}
