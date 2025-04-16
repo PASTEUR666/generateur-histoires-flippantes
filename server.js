@@ -1,7 +1,3 @@
-const port = 3001;  // Change 3000 à un autre numéro, par exemple 3001 ou 5000
-app.listen(port, () => {
-    console.log(`Serveur démarré sur le port ${port}`);
-});
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -11,7 +7,7 @@ import OpenAI from 'openai';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
