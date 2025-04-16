@@ -1,81 +1,42 @@
-/* --- Glitch effect on title --- */
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-    text-shadow: 2px 0 red, -2px 0 cyan, 0 2px green, 0 -2px purple;
-  }
-  10% {
-    transform: translate(-2px, 2px);
-    text-shadow: -2px -2px red, 2px 2px cyan, -2px -2px green, 2px 2px purple;
-  }
-  20% {
-    transform: translate(2px, -2px);
-    text-shadow: 2px 0 red, -2px 0 cyan, 0 2px green, 0 -2px purple;
-  }
-  30% {
-    transform: translate(-2px, 2px);
-    text-shadow: -2px -2px red, 2px 2px cyan, -2px -2px green, 2px 2px purple;
-  }
-  40% {
-    transform: translate(0);
-    text-shadow: 2px 0 red, -2px 0 cyan, 0 2px green, 0 -2px purple;
-  }
-  50% {
-    transform: translate(0, 0);
-    text-shadow: 0 0 5px red, 0 0 10px cyan, 0 0 15px green, 0 0 20px purple;
-  }
-  100% {
-    transform: translate(0);
-    text-shadow: 2px 0 red, -2px 0 cyan, 0 2px green, 0 -2px purple;
-  }
-}
-
-/* --- Flash red effect --- */
-@keyframes flashRed {
-  0% { background-color: transparent; }
-  50% { background-color: rgba(255, 0, 0, 0.6); }
-  100% { background-color: transparent; }
-}
-
-/* --- Glitch effect applied to the title --- */
-h1 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  animation: glitch 1.5s infinite;
-  color: #fff;
-}
-
-/* --- Flash effect for background --- */
-.flash {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  animation: flashRed 0.5s infinite;
-  display: none; /* Hide initially */
-}
-
-/* --- Shadow effect on body --- */
 body {
-  background: url("Fond.png") no-repeat center center fixed;
+  background: url('Fond.png') no-repeat center center fixed;
   background-size: cover;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
   margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.container {
   text-align: center;
-  padding: 30px 20px;
-  backdrop-filter: brightness(40%) blur(2px);
-  position: relative;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: 100px auto;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
 }
-button:nth-child(4) {
-  background-color: #8800cc;
+
+button {
+  padding: 15px 25px;
+  background-color: #ff0000;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease;
 }
-button:nth-child(4):hover {
-  background-color: #660099;
+
+button:hover {
+  background-color: #cc0000;
+}
+
+.story {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 20px;
+  white-space: pre-line;
 }
