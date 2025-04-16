@@ -1,17 +1,21 @@
-document.getElementById("generateBtn").addEventListener("click", async () => {
-  const storyContainer = document.getElementById("storyContainer");
-  storyContainer.innerText = "Chargement de l’histoire...";
+document.getElementById('generateBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('http://localhost:3000/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ param: 'valeur' }) // Si tu veux envoyer des paramètres
+        });
 
-  try {
-    const response = await fetch('/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
+        if (!response.ok) {
+            throw new Error('Une erreur s\'est produite.');
+        }
 
-    const data = await response.json();
-    storyContainer.innerText = data.story;
-  } catch (error) {
-    storyContainer.innerText = "Une erreur s’est produite.";
-    console.error(error);
-  }
+        const data = await response.json();
+        document.getElementById('storyText').innerText = data.histoire; // Afficher l'histoire générée
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Une erreur s\'est produite. Réessayez !');
+    }
 });
