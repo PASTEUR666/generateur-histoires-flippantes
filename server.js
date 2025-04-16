@@ -1,55 +1,38 @@
-// server.js
-document.getElementById("generateBtn").addEventListener("click", async () => {
-  const storyContainer = document.getElementById("storyContainer");
-  storyContainer.innerText = "Chargement de l’histoire...";
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
-  try {
-    const response = await fetch('/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    const data = await response.json();
-    storyContainer.innerText = data.story;
-  } catch (error) {
-    storyContainer.innerText = "Une erreur s’est produite.";
-    console.error(error);
-  }
-});
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { Configuration, OpenAIApi } = require('openai');
+dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
-app.use(cors());
+const port = process.env.PORT || 3000;
 
-const configuration = new Configuration({
-  apiKey: 'TA_CLE_API_OPENAI_👉', // Remplace ici
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static('public')); // si tu as index.html dans un dossier "public"
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Assure-toi que la clé est bien dans .env
 });
-const openai = new OpenAIApi(configuration);
 
 app.post('/generate', async (req, res) => {
-  const { name, city } = req.body;
-
-  const prompt = `Raconte une histoire d'horreur flippante, courte (moins de 50 secondes à lire), avec un personnage nommé ${name} vivant à ${city}. Elle doit finir de façon mystérieuse.`;
-
   try {
-    const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.8,
-      max_tokens: 200,
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: "Raconte-moi une histoire d'horreur courte et flippante en français." }],
+      model: "gpt-3.5-turbo",
+      max_tokens: 300,
     });
 
-    const story = response.data.choices[0].message.content;
+    const story = completion.choices[0].message.content;
     res.json({ story });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Erreur lors de la génération.');
+  } catch (err) {
+    console.error("Erreur OpenAI:", err);
+    res.status(500).json({ story: "Erreur lors de la génération de l’histoire." });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
+app.listen(port, () => {
+  console.log(`Serveur lancé sur le port ${port}`);
+});
