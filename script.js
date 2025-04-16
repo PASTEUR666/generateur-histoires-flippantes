@@ -2,6 +2,12 @@ function generer() {
   const theme = document.getElementById("theme").value;
   const messageContainer = document.getElementById("message-container");
 
+  // Vérifie si l'élément existe
+  if (!messageContainer) {
+    console.error("L'élément message-container est introuvable.");
+    return;
+  }
+
   if (!theme) {
     messageContainer.innerHTML = "Veuillez entrer un thème pour générer une histoire.";
     return;
