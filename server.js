@@ -11,21 +11,25 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Route pour générer une histoire
-app.post('/generate', (req, res) => {
-    try {
-        // Remplacer cette ligne avec le générateur d'histoires flippantes
-        const histoire = "Une histoire flippante aléatoire : ..."; // Exemple d'histoire
+app.post('/generate', async (req, res) => {
+  try {
+    const { prompt } = req.body;
 
-        // Envoie la réponse au client avec l'histoire générée
-        res.json({ histoire });
-
-    } catch (err) {
-        // Log l'erreur dans la console si quelque chose ne va pas
-        console.error("Erreur lors de la génération de l'histoire :", err);
-        
-        // Répond au client avec une erreur 500 si nécessaire
-        res.status(500).json({ error: "Une erreur interne s'est produite." });
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt manquant' });
     }
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+    });
+
+    res.json({ story: completion.choices[0].message.content });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
 // Démarrer le serveur
