@@ -1,8 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from "express";
 import OpenAI from "openai";
 import cors from "cors";
 import bodyParser from "body-parser";
-import dotenv from "dotenv";
 
 // Charger les variables d'environnement depuis le fichier .env
 dotenv.config();
