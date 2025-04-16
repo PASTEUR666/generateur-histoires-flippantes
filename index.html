@@ -38,7 +38,30 @@
         text: "Un enfant pleure dans les rues de {city}. Tu sors pour l’aider. Il te regarde et dit : 'Je t’ai trouvé… {name}.' Mais tu ne l’as jamais vu.",
         img: "https://cdn.pixabay.com/photo/2016/12/27/21/03/doll-1935560_960_720.jpg"
       }
-    ];
+    ]
+      const longStories = [
+  {
+    text: "{name} vivait à {city}, dans une vieille maison héritée de sa grand-mère. Chaque nuit, à 3h33, une porte grinçait... toujours celle du grenier. Un soir, {name} a décidé de monter. Il trouva un journal poussiéreux, avec son prénom écrit à l’intérieur, à une date d’avant sa naissance. Depuis cette nuit-là, le miroir du couloir lui renvoie le reflet d’un enfant... qui n’est pas lui.",
+    img: "https://cdn.pixabay.com/photo/2021/10/15/16/14/ghost-6711736_960_720.jpg"
+  },
+  {
+    text: "À {city}, un enfant disparu depuis 20 ans revient chez lui... sans avoir vieilli. Il reconnaît {name}, le nouveau locataire, et dit : 'Tu n’aurais jamais dû venir ici'. Cette nuit-là, {name} entend des chuchotements sous le plancher. En creusant, il découvre une photo... de lui, prise aujourd’hui, mais il ne l’a jamais vue.",
+    img: "https://cdn.pixabay.com/photo/2021/11/21/12/17/ghost-6811537_960_720.jpg"
+  }
+];
+
+function generateLongStory() {
+  const name = document.getElementById('userName').value || 'Quelqu’un';
+  const city = document.getElementById('userCity').value || 'quelque part';
+  const index = Math.floor(Math.random() * longStories.length);
+  let story = longStories[index].text;
+  story = story.replaceAll('{name}', name).replaceAll('{city}', city);
+  document.getElementById('storyBox').innerText = story;
+
+  const img = document.getElementById('storyImage');
+  img.src = longStories[index].img;
+  img.style.display = 'block';
+};
 
     function generateStory() {
       const name = document.getElementById('userName').value || 'Quelqu’un';
