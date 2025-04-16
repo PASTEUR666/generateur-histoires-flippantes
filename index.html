@@ -7,96 +7,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="flash" id="flash"></div> <!-- Flash red background div -->
-  <h1>💀 Générateur d'Histoires Flippantes</h1>
-
-  <input type="text" id="userName" placeholder="Ton prénom" />
-  <input type="text" id="userCity" placeholder="Ta ville" />
-  <button id="generateBtn">Nouvelle histoire flippante</button>
-<div id="storyContainer"></div>
-  <div class="story-box" id="storyBox">Clique sur le bouton... si tu n'as pas peur.</div>
-  <img id="storyImage" src="" alt="Image flippante" style="display:none;" />
-
-  <div class="share-buttons">
-    <button onclick="shareTikTok()">Partager sur TikTok</button>
-    <button onclick="shareWhatsApp()">Partager sur WhatsApp</button>
+  <div class="container">
+    <h1>💀 Histoire Flippante</h1>
+    <button id="generateBtn">Nouvelle histoire flippante</button>
+    <div id="storyContainer" class="story">Clique pour une histoire… si tu l’oses.</div>
   </div>
 
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_d6e93f6d1f.mp3" controls autoplay loop></audio>
-
-  <script>
-    const stories = [
-      {
-        text: "{name}, tu te réveilles à 3h33 à {city}. Ton téléphone s'allume tout seul, et affiche une photo de toi en train de dormir... prise à l’instant même.",
-        img: "https://cdn.pixabay.com/photo/2021/01/06/08/06/ghost-5892777_960_720.jpg"
-      },
-      {
-        text: "Une voix appelle {name} depuis la cuisine à {city}. Tu vis seul. Tu regardes… et tu te vois, toi, te sourire depuis le couloir.",
-        img: "https://cdn.pixabay.com/photo/2020/11/14/08/27/horror-5739997_960_720.jpg"
-      },
-      {
-        text: "Un enfant pleure dans les rues de {city}. Tu sors pour l’aider. Il te regarde et dit : 'Je t’ai trouvé… {name}.' Mais tu ne l’as jamais vu.",
-        img: "https://cdn.pixabay.com/photo/2016/12/27/21/03/doll-1935560_960_720.jpg"
-      }
-    ]
-      async function generateAIStory() {
-  const name = document.getElementById('userName').value || 'Quelqu’un';
-  const city = document.getElementById('userCity').value || 'quelque part';
-
-  const response = await fetch('http://localhost:3000/generate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, city })
-  });
-
-  const data = await response.json();
-  document.getElementById('storyBox').innerText = data.story;
-
-  // Optionnel : cacher l’image pour les histoires IA
-  document.getElementById('storyImage').style.display = 'none';
-}
-];
-
-function generateLongStory() {
-  const name = document.getElementById('userName').value || 'Quelqu’un';
-  const city = document.getElementById('userCity').value || 'quelque part';
-  const index = Math.floor(Math.random() * longStories.length);
-  let story = longStories[index].text;
-  story = story.replaceAll('{name}', name).replaceAll('{city}', city);
-  document.getElementById('storyBox').innerText = story;
-
-  const img = document.getElementById('storyImage');
-  img.src = longStories[index].img;
-  img.style.display = 'block';
-};
-
-    function generateStory() {
-      const name = document.getElementById('userName').value || 'Quelqu’un';
-      const city = document.getElementById('userCity').value || 'quelque part';
-      const index = Math.floor(Math.random() * stories.length);
-      let story = stories[index].text;
-      story = story.replaceAll('{name}', name).replaceAll('{city}', city);
-      document.getElementById('storyBox').innerText = story;
-      const img = document.getElementById('storyImage');
-      img.src = stories[index].img;
-      img.style.display = 'block';
-
-      // Show flash effect
-      document.getElementById('flash').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('flash').style.display = 'none';
-      }, 500); // Flash duration 500ms
-    }
-
-    function shareTikTok() {
-      alert("TikTok ne permet pas le partage direct depuis une page web. Copie-colle l'histoire sur ton TikTok !");
-    }
-
-    function shareWhatsApp() {
-      const story = document.getElementById('storyBox').innerText;
-      const url = `https://wa.me/?text=${encodeURIComponent(story)}`;
-      window.open(url, '_blank');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
