@@ -17,13 +17,18 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.post('/generate', async (req, res) => {
-  try {
-    const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: "Raconte-moi une histoire d'horreur courte et flippante en français." }],
-      model: "gpt-3.5-turbo",
-      max_tokens: 300,
-    });
+// Route pour générer une histoire
+app.post('/generate', (req, res) => {
+    // Tu peux remplacer cette partie par le code pour générer une histoire
+    const histoire = "Une histoire flippante aléatoire : ..."; // Exemple d'histoire
+
+    // Envoie la réponse au frontend
+    res.json({ histoire });
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
 
     const story = completion.choices[0].message.content;
     res.json({ story });
