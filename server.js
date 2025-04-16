@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 // Clé API OpenAI
 const openai = new OpenAI({
-  apiKey: "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", // Remplace par ta clé API OpenAI
+  apiKey: "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", // Remplace par ta clé API OpenAI
 });
 
 app.post("/generate", async (req, res) => {
