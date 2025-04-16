@@ -4,9 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Charge les variables d'environnement
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,16 +13,15 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Clé API OpenAI
+// Clé API depuis le fichier .env
 const openai = new OpenAI({
-  apiKey: "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", // Remplace par ta clé API OpenAI
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.post("/generate", async (req, res) => {
   try {
     const { theme } = req.body;
 
-    // Vérifie si le thème est fourni
     if (!theme) {
       console.log("Le thème est manquant");
       return res.status(400).json({ error: "Le thème est requis." });
@@ -31,7 +29,6 @@ app.post("/generate", async (req, res) => {
 
     console.log(`Requête reçue pour générer une histoire avec le thème: ${theme}`);
 
-    // Envoi de la requête à OpenAI
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -39,7 +36,6 @@ app.post("/generate", async (req, res) => {
       ],
     });
 
-    // Vérifie si la réponse de OpenAI contient bien une histoire
     if (completion.choices && completion.choices[0] && completion.choices[0].message) {
       const histoire = completion.choices[0].message.content;
       console.log("Histoire générée:", histoire);
