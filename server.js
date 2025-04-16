@@ -1,35 +1,47 @@
+import express from "express";
+import OpenAI from "openai";
+import cors from "cors";
+import bodyParser from "body-parser";
 
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import OpenAI from 'openai';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Création d'une instance express
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+const port = process.env.PORT || 3000;
 
-app.post('/generate', async (req, res) => {
+// Utilisation du middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Clé API OpenAI
+const openai = new OpenAI({
+  apiKey: "TA_CLÉ_API_ICI", // Remplace ici par ta clé OpenAI
+});
+
+app.post("/generate", async (req, res) => {
   try {
+    // Récupérer le thème
+    const { theme } = req.body;
+    
+    if (!theme) {
+      return res.status(400).json({ error: "Le thème est requis." });
+    }
+
+    // Demander à OpenAI de générer une histoire
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: "Raconte une histoire flippante" }],
-      model: "gpt-3.5-turbo"
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "user", content: `Raconte une histoire flippante sur : ${theme}` },
+      ],
     });
-    res.json({ story: completion.choices[0].message.content });
+
+    const histoire = completion.choices[0].message.content;
+    res.json({ histoire });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Erreur lors de la génération' });
+    console.error("Erreur lors de la génération de l'histoire", err);
+    res.status(500).json({ error: "Erreur lors de la génération de l'histoire" });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
+// Démarrage du serveur
+app.listen(port, () => {
+  console.log(`Serveur démarré sur le port ${port}`);
+});
