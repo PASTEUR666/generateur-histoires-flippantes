@@ -1,3 +1,7 @@
+const port = 3001;  // Change 3000 à un autre numéro, par exemple 3001 ou 5000
+app.listen(port, () => {
+    console.log(`Serveur démarré sur le port ${port}`);
+});
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
