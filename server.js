@@ -2,9 +2,9 @@ import express from "express";
 import OpenAI from "openai";
 import cors from "cors";
 import bodyParser from "body-parser";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
-// Charge les variables d'environnement
+// Charger les variables d'environnement depuis le fichier .env
 dotenv.config();
 
 const app = express();
@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Clé API depuis le fichier .env
+// Configuration OpenAI avec la clé dans le fichier .env
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
