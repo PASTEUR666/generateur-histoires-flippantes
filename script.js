@@ -1,6 +1,6 @@
 document.getElementById('generateBtn').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://localhost:3000/generate', {
+        const response = await fetch('http://localhost:3001/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
