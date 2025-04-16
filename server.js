@@ -2,6 +2,12 @@ import express from "express";
 import OpenAI from "openai";
 import cors from "cors";
 import bodyParser from "body-parser";
+import dotenv from 'dotenv';
+dotenv.config();
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
