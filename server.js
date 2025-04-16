@@ -1,43 +1,27 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import OpenAI from 'openai';
-
-dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static('public'));
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+app.use(bodyParser.json());  // Pour parser le JSON
 
 // Route pour générer une histoire
 app.post('/generate', (req, res) => {
-    // Tu peux remplacer cette partie par le code pour générer une histoire
-    const histoire = "Une histoire flippante aléatoire : ..."; // Exemple d'histoire
+    try {
+        // Tu peux remplacer cette partie par le code pour générer une histoire
+        const histoire = "Une histoire flippante aléatoire : ..."; // Exemple d'histoire
 
-    // Envoie la réponse au frontend
-    res.json({ histoire });
+        // Envoie la réponse au frontend
+        res.json({ histoire });
+    } catch (err) {
+        console.error("Erreur lors de la génération de l'histoire :", err);
+        res.status(500).json({ error: "Une erreur interne s'est produite." });
+    }
 });
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-});
-
-    const story = completion.choices[0].message.content;
-    res.json({ story });
-  } catch (err) {
-    console.error("Erreur OpenAI:", err);
-    res.status(500).json({ story: "Erreur lors de la génération de l’histoire." });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Serveur lancé sur le port ${port}`);
 });
