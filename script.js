@@ -1,19 +1,32 @@
-function generer() {
-  const prompt = document.getElementById("prompt").value;
+document.addEventListener('DOMContentLoaded', () => {
+  const bouton = document.getElementById('genererBtn');
+  bouton.addEventListener('click', generer);
+});
 
-  fetch('http://localhost:3001/generate', {
-    method: 'POST',
+function generer() {
+  const themeInput = document.getElementById('theme');
+  const resultatDiv = document.getElementById('resultat');
+
+  if (!themeInput) {
+    console.error("L'élément #theme est introuvable.");
+    return;
+  }
+
+  const theme = themeInput.value;
+
+  fetch("http://localhost:3000/generate", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({ prompt })
+    body: JSON.stringify({ theme })
   })
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    document.getElementById("resultat").innerText = data.story;
+    resultatDiv.innerText = data.histoire || "Aucune histoire générée.";
   })
-  .catch(error => {
-    console.error('Erreur:', error);
-    document.getElementById("resultat").innerText = "Une erreur s’est produite.";
+  .catch(err => {
+    resultatDiv.innerText = "Une erreur s’est produite.";
+    console.error(err);
   });
 }
