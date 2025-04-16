@@ -1,21 +1,19 @@
-document.getElementById('generateBtn').addEventListener('click', async () => {
-    try {
-        const response = await fetch('http://localhost:3001/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ param: 'valeur' }) // Si tu veux envoyer des paramètres
-        });
+function generer() {
+  const prompt = document.getElementById("prompt").value;
 
-        if (!response.ok) {
-            throw new Error('Une erreur s\'est produite.');
-        }
-
-        const data = await response.json();
-        document.getElementById('storyText').innerText = data.histoire; // Afficher l'histoire générée
-    } catch (error) {
-        console.error('Erreur:', error);
-        alert('Une erreur s\'est produite. Réessayez !');
-    }
-});
+  fetch('http://localhost:3001/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ prompt })
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("resultat").innerText = data.story;
+  })
+  .catch(error => {
+    console.error('Erreur:', error);
+    document.getElementById("resultat").innerText = "Une erreur s’est produite.";
+  });
+}
