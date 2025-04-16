@@ -15,7 +15,7 @@ function generer() {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ theme: theme }), // Envoyer le thème choisi
+    body: JSON.stringify({ theme: theme }),
   })
     .then((response) => response.json())
     .then((data) => {
